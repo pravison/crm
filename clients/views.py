@@ -29,7 +29,6 @@ def register_user(request):
         confirm_password = request.POST.get('confirm_password')
         client_name = request.POST.get('client_name')
         business_name = request.POST.get('business_name')
-        industry = request.POST.get('industry')
 
         # Validate inputs
         if password != confirm_password:
@@ -61,7 +60,6 @@ def register_user(request):
             client_name=client_name,
             business_name=business_name,
             phone_number=phone_number,
-            industry=industry,
         )
         
         Staff.objects.create(
