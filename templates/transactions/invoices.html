@@ -1,0 +1,81 @@
+{% extends 'clients/main.html' %}
+{% load static %}
+{% block title %}Invoices {% endblock%}
+{% load custom_filters %}
+{% block content %}
+<main id="main" class="main">
+
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+
+  {% endfor %}
+  {% endif %}
+  <div class="pagetitle">
+      <h1>Invoices</h1>
+      <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard' client.slug %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'customers' client.slug %}">Customers</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'create_invoice' client.slug %}">Create New Invoice</a></li>
+      </ol>
+      </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body overflow-auto">
+            <h5 class="card-title">Invoices</h5>
+            
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Recipient</th>
+                  <th scope="col">Service/Item</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col">Settled</th>
+                  <th scope="col">Overdue</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for invoice in invoices %}
+                <tr>
+                  <td><a href="{% url 'view_invoice' client.slug %}?invoice_id={{invoice.id}}">{{ invoice.invoice_date}}</a></td>
+                  <td>{{ invoice.title}}</td>
+                  <td>{{ invoice.recipient_full_name }}</td>
+                  <td>{{ invoice.service_or_item}}</td>
+                  <td>{{ invoice.grand_total}}</td>
+                  <td>{{ invoice.due_date}}</td>
+                  <td>{% if invoice.settled %}<span class="badge bg-success">Yes</span> {% else %} <span class="badge bg-warning">No</span> {% endif %}</td>
+                
+                  <td>{% if invoice.due_date < current_date %}<span class="badge bg-secondary">{{ invoice.days_until_due }} day{% if invoice.days_until_due > 1 %}s{%endif%} remaining</span> {% elif invoice.due_date == current_date %}<span class="badge bg-secondary">Today</span> {% else %} 
+                    <span class="badge bg-danger"> Overdue by {{ invoice.days_until_due }} day{% if invoice.days_until_due > 1 %}s{%endif%}</span> {% endif %}</td>
+                  <td><a href="{% url 'index' %}admin/transactions/invoice/{{invoice.id}}/change/"><span class="badge bg-primary">Edit</span></a> <a href="{% url 'view_invoice' client.slug %}?invoice_id={{invoice.id}}"><span class="badge bg-primary">view</span></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+{% endblock %}
+

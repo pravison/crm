@@ -1,0 +1,74 @@
+{% extends 'clients/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Chats List {% endblock%}
+
+{% block content %}
+<main id="main" class="main">
+
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+
+  {% endfor %}
+  {% endif %}
+  <div class="pagetitle">
+      <h1>welcome to  {{ title }}</h1>
+      <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard' client.slug %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'leads_warmup_page' %}">Customer Follow up</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'write_message' client.slug %}">Write Message</a></li>
+      </ol>
+      </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body overflow-auto">
+            <h5 class="card-title">Customer Chats</h5>
+            
+            <!-- Table with stripped rows -->
+            <table class="table datatable ">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Un-read Messages</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">last talked</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for customer in customers %}
+                <tr>
+                  <td><a href="{% url 'chat' client.slug %}?customer_id={{customer.id}}">
+                    {% if customer.name %}{{ customer.name }} {% elif customer.whatsapp_profile %} {{ customer.whatsapp_profile }}-{% endif %} {{ customer.phone_number}} 
+                  </a> </td>
+                  <td><a href="{% url 'chat' client.slug %}?customer_id={{customer.id}}">{{ customer.unread_count}}</a></td>
+                  <td scope="roe">{% if customer.last_message_send %} {{ customer.last_message_send | date:"M, d, Y P" }} {% else %} {{ customer.date_added }} {% endif %}</td>
+                  <td><a href="{% url 'chat' client.slug %}?customer_id={{customer.id}}">{{ customer.last_talked}}</a></td>
+                  <td><span><a href="{% url 'add_interaction' client.slug %}?customer_id={{customer.id}}&query=chats" title="add interaction"><i class="bi bi-bookmark-plus text-success"></i></a></span> <span><a href="{% url 'add_task' client.slug %}?customer_id={{customer.id}}" title="add task"><i class="bi bi-calendar-plus text-warning"></i></a></span> <span><a href="{% url 'chat' client.slug %}?customer_id={{customer.id}}" title="send message"><i class="bi bi-chat-left-text text-primary"></i></a></span></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+{% endblock %}
+

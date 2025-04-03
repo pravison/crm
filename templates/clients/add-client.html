@@ -1,0 +1,102 @@
+{% extends 'clients/register.html' %}
+{% load static %}
+{% block title %}Add New Business{% endblock%}
+{% block content %}
+<main>
+  <div class="container">
+
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+            <div class="d-flex justify-content-center py-4">
+              <a href="" class="logo d-flex align-items-center w-auto">
+                <span class="d-none d-lg-block">PASONA CRM</span>
+              </a>
+            </div><!-- End Logo -->
+
+            <div class="card mb-3">
+
+              <div class="card-body">
+
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Add New Business</h5>
+                  <p class="text-center small">Enter your business details to create account</p>
+                </div>
+                <form class="row g-3 needs-validation" method="POST" action="{% url 'add_business' %}">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          {{ message }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+
+                      {% endfor %}
+                  {% endif %}
+                  {% csrf_token %}
+                  <div class="col-12">
+                    <label for="your_business_name" class="form-label">Your Business Name *</label>
+                    <input type="text" name="business_name" class="form-control" id="your_business_name" required>
+                    <div class="invalid-feedback">Please, enter your business name!</div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="industry" class="form-label">Industry Of Operation *</label>
+                    <input type="text" name="industry" class="form-control" id="industry" required>
+                    <div class="invalid-feedback">Please, enter your industry</div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="yourEmail" class="form-label">Your Business Email</label>
+                    <input type="email" name="email" class="form-control" id="yourEmail" >
+                    <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="yourEmail" class="form-label">Your Business Phone Number *</label>
+                    <input type="text" name="phone_number" class="form-control" id="yourEmail" required>
+                    <div class="invalid-feedback">Please enter a valid phone number!</div>
+                  </div>
+
+                  
+                  <div class="col-12">
+                    <button class="btn btn-primary w-100" type="submit" id="RegisteringAccount">Add Business</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+
+            <div class="credits">
+              Designed by <a href="https://salesflowpro.xyz/">PASONA</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main><!-- End #main -->
+
+<script>
+  // Add an event listener to the form submission
+  document.addEventListener('DOMContentLoaded', function () {
+      const loginButton = document.getElementById('RegisteringAccount');
+      const form = loginButton.closest('form'); // Find the closest form element
+
+      if (form) {
+          form.addEventListener('submit', function () {
+              // Disable the button
+              loginButton.disabled = true;
+
+              // Update the button text
+              loginButton.textContent = "registration in progress...";
+          });
+      }
+  });
+</script>
+{% endblock %}

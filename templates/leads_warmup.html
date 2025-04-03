@@ -1,0 +1,118 @@
+
+{% extends 'clients/main.html' %}
+{% load static %}
+{% block title %} Leads follow up {% endblock%}
+{% block content %}
+
+<main id="main" class="main">
+{% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+
+    {% endfor %}
+{% endif %}
+<div class="pagetitle">
+    <h1>customers</h1>
+    <nav>
+    <ol class="breadcrumb">
+       <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+       <li class="breadcrumb-item"><a href="{% url 'add_customer_to_pipeline' client.slug %}">click to add customers for follow-up</a></li>
+       <li class="breadcrumb-item"><a href="{% url 'follow_up_customers' client.slug%}">click to follow-up customers</a></li>
+    </ol>
+    </nav>
+</div><!-- End Page Title -->
+<section class="section dashboard">
+    <div class="row">
+
+    <!-- Left side columns -->
+    <div class="col-lg-12">
+        <div class="row">
+
+        <!-- Recent Sales -->
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+            <div class="filter">
+                <a class="icon" href="{% url 'follow_up_customers' client.slug %}" title="click to follow-up customers"><i class="bi bi-broadcast  "></i></a>
+                <a class="icon" href="{% url 'add_customer_to_pipeline' client.slug %}" title="click to add customers for follow-up"><i class="bi bi-plus-circle"></i></a> 
+                
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title"> customers to be followed up today </span></h5>
+
+                <table class="table table-borderless datatable">
+                <thead>
+                    <tr>
+                    <th scope="col">customer</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Done</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                    <th scope="row">{{ task.customer.name }}</th>
+                    <td>{{ task.customer.phone_number }}</td>
+                    <td>{{ task.follow_up_time }}</td>
+                    <td><span class="badge {% if task.done == 'True' %} bg-success  {% else %} bg-danger  {% endif %}">{{task.done}}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+
+            </div>
+
+            </div>
+        </div><!-- End Recent Sales -->
+
+        </div>
+    </div><!-- End Left side columns -->
+
+    </div>
+</section>
+</main><!-- End #main -->
+
+{% endblock  %}
+<div class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-4">
+          <div class="widget">
+            <h3>welcome to  {{ title }}</h3>
+              <p> head to <a href="/admin">Administratin</a></p>
+              <p> head to <a href="{% url 'leads_warmup_page' %}">Leads Warmup Page</a></p>
+          </div>
+          <!-- /.widget -->
+        </div>
+        
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row mt-5">
+      <div class="col-12 text-center">
+      
+        <p>
+          Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          . All Rights Reserved. &mdash; site maintained by
+          <a href="https://salesflowpro.xyz/" target="_blank">Salesflow Pro.</a>
+        </p>
+      
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.site-footer -->
+  
+

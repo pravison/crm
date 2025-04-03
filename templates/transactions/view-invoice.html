@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    {% load humanize %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <title>Invoice</title>
+    <style>
+    /* Add more styles here */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .invoice-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice-details {
+            margin-bottom: 30px;
+        }
+        .invoice-details div {
+            margin-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .section p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .charges {
+            margin-bottom: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .charges p {
+            display: flex;
+            justify-content: space-between;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .note {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Ensures the popup stays on the screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Higher z-index to appear on top of other elements */
+        }
+
+        /* Popup content box */
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            z-index: 10000; /* Ensures the content box stays above the overlay */
+        }
+        /* #cc922e */ 
+        /* #1563df blue color */
+
+        .popup-content input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .popup-content button {
+            margin: 5px;
+            padding: 8px 16px;
+            background: #1563df;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .popup-content button:hover {
+            background: #1563df;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            .invoice-container {
+                width: 100%;
+                border: none;
+                box-shadow: none;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <h1>{{ client.business_name }} Invoice</h1>
+        <div class="charges">
+            <p>
+                <span><a href="{% url 'generate_pdf' client.slug %}?invoice_id={{invoice.id}}" class="btn btn-primary">Download</a>
+                </span>
+                <span><a href="#" class="nav-link-item" onclick="showPopup(event)">
+                    <i class="bi bi-share"></i> Share
+                </a>
+            </span>
+            </p>
+        </div>
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <div><strong>Invoice Number:</strong> #{{ invoice.id }}</div>
+            <div><strong>Invoice Date:</strong> {{ invoice.invoice_date }}</div>
+            <div><strong>Due Date:</strong> {{ invoice.due_date }}</div>
+        </div>
+
+        <!-- Sender Details -->
+        <div class="section">
+            <h3>Sender:</h3>
+            <p>{{ client.business_name }}</p>
+            <p>{{ client.email }} | {{ client.phone_number }}</p>
+        </div>
+
+        <!-- Recipient Details -->
+        <div class="section">
+            <h3>Recipient:</h3>
+            <p>{{ invoice.recipient_full_name }}</p>
+            <p>{{ invoice.recipient_email }} | {{ invoice.recipient_phone_number }}</p>
+        </div>
+        {% if invoice.property_name %}
+        <!-- Property Details -->
+        <div class="section">
+            <h3>Property Details:</h3>
+            <p><strong>Property Address:</strong> {{ invoice.property_name }}</p>
+            <p><strong>Property Price:</strong> {{ invoice.price|intcomma }}</p>
+            <p><strong>Property Address:</strong> {{ invoice.property_address }}</p>
+            <p><strong>Transaction Type:</strong> {{ invoice.transaction_type }}</p>
+        </div>
+        {% endif %}
+        <!-- Charges -->
+        <div class="charges">
+            <h3>Charges:</h3>
+            <p>
+                <span>{{ invoice.service_or_item }}</span>
+                <span>{{ invoice.amount|intcomma }}</span>
+            </p>
+            {% if invoice.tax_rate %}
+            <p>
+                <span>Tax({{ invoice.tax_rate }}%):</span>
+                <span>{{ tax|intcomma }}</span>
+            </p>
+            {% endif %}
+            {% if invoice.discounts %}
+            <p>
+                <span>Discount:</span>
+                <span>{{ invoice.discounts|intcomma }}</span>
+            </p>
+            {% endif %}
+
+        </div>
+
+        <!-- Total Amount Due -->
+        <div class="total">
+            <span>Total Amount Due:</span>
+            <span>{{ invoice.grand_total|intcomma }}</span>
+        </div>
+
+        <!-- Payment Instructions -->
+        <div class="section">
+            <h3>Payment:</h3>
+            <p><strong>Payment Metthod Accepted:</strong> {{ invoice.payment_methods_accepted|safe }}</p>
+            <p><strong>Payment Details:</strong> {{ invoice.payment_details|safe }}</p>
+            <p><strong>Reference Instructions:</strong> {{ invoice.reference_instructions|safe }}</p>
+        </div>
+        {% if invoice.additional_information %}
+        <!-- Notes -->
+        <div class="note">
+            <p><strong>Notes:</strong> {{ invoice.additional_information|safe }}</p>
+        </div>
+        {% endif %}
+    </div>
+    {% if request.user.is_authenticated%}
+    <div class="invoice-container">
+        <div class="charges">
+            <p>
+                <span><a href="{% url 'invoices' client.slug %}" class="ecommerce-link">head back to invoices</a></span>
+                <span><a href="{% url 'index' %}admin/transactions/invoice/{{invoice.id}}/change/"><span class="badge bg-primary">Edit</span></a></span>
+            </p>
+        </div>
+    <!-- Ecommerce Link -->
+    </div>
+    {% endif %}
+</body>
+
+<!-- Popup Modal -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <p>Share this URL:</p>
+        <input type="text" id="share-url" value="{{request.build_absolute_uri}}" readonly />
+        <button onclick="copyToClipboard()">Copy</button>
+        <button onclick="closePopup()">Close</button>
+    </div>
+</div>
+<script>
+    function showPopup(event) {
+        event.preventDefault(); // Prevent default link behavior
+        const popup = document.getElementById('popup');
+        popup.style.display = 'flex'; // Show the popup
+    }
+    
+    function closePopup() {
+        const popup = document.getElementById('popup');
+        popup.style.display = 'none'; // Hide the popup
+    }
+    
+    function copyToClipboard() {
+        const urlField = document.getElementById('share-url');
+        urlField.select(); // Select the text
+        document.execCommand('copy'); // Copy the text to the clipboard
+        alert('URL copied to clipboard!');
+    }
+</script>
+</html>

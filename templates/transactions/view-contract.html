@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load humanize %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Contract</title>
+    <!-- Bootstrap CSS -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7xeXlC1GZcmZllax3IPhRhG7vl5p1jANXk+" 
+        crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .contract-container {
+                width: 80%;
+                max-width: 900px;
+                margin: 20px auto;
+                background-color: #fff;
+                padding: 30px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            color: #495057;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 5px;
+        }
+        .contract-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .contract-header h1 {
+            font-size: 2rem;
+            color: #343a40;
+        }
+        .contract-header p {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+        .content-group {
+            margin-bottom: 25px;
+        }
+        .content-group label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .content-group p {
+            margin: 0;
+            color: #6c757d;
+        }
+        .charges p {
+            display: flex;
+            justify-content: space-between;
+        }
+        /* modal popup */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Ensures the popup stays on the screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Higher z-index to appear on top of other elements */
+        }
+
+        /* Popup content box */
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            z-index: 10000; /* Ensures the content box stays above the overlay */
+        }
+        /* #cc922e */ 
+        /* #1563df blue color */
+
+        .popup-content input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .popup-content button {
+            margin: 5px;
+            padding: 8px 16px;
+            background: #1563df;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .popup-content button:hover {
+            background: #1563df;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            .invoice-container {
+                width: 100%;
+                border: none;
+                box-shadow: none;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="contract-container">
+            <div class="contract-header">
+                <h1>{{client.business_name }} Contract</h1>
+                <p>Contract Type: {{ contract.contract_type }}</p>
+            </div>
+            <div class="charges">
+                <p>
+                    <span><a href="{% url 'generate_pdf' client.slug %}?contract_id={{contract.id}}" class="btn btn-primary">Download</a>
+                    </span>
+                    <span><a href="#" class="nav-link-item" onclick="showPopup(event)">
+                        <i class="bi bi-share"></i> Share
+                    </a>
+                </span>
+                </p>
+            </div>
+            <div class=" col-lg-8">
+                <h2 class="section-title">Parties Involved</h2>
+                {% if contract.seller_landlord_name or contract.seller_landlord_contact %}
+                <div class="row">
+                    <div class="col-md-6 content-group">
+                        <label>Seller/Landlord</label>
+                        <p>Name: {{ contract.seller_landlord_name }}</p>
+                        <p>Contact: {{ contract.seller_landlord_contact }}</p>
+                    </div>
+                    
+                </div>
+                {% endif %}
+                {% if contract.buyer_tenant_name or contract.buyer_tenant_contact %}
+                <div class="row">
+                    <div class="col-md-6 content-group">
+                        <label>Buyer/Tenant</label>
+                        <p> Name: {{ contract.buyer_tenant_name }}</p>
+                        <p>Contact: {{ contract.buyer_tenant_contact }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if contract.agent_name or contract.agent_contact %}
+                <div class="row">
+                    <div class="col-md-6 content-group">
+                        <label>Agent</label>
+                        <p> Name: {{ contract.agent_name }}</p>
+                        <p>Contact: {{ contract.agent_contact }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if contract.property_name or contract.property_address or contract.property_description %}
+            <div>
+                <h2 class="section-title">Property Details</h2>
+                <div class="content-group">
+                    <label>Property Name:</label>
+                    <p>{{ contract.property_name }}</p>
+                </div>
+                <div class="content-group">
+                    <label>Address:</label>
+                    <p>{{ contract.property_address|safe }}</p>
+                </div>
+                <div class="content-group">
+                    <label>Description:</label>
+                    <p>{{ contract.property_description|safe }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% if contract.price_amount or contract.deposit_amount or contract.payment_schedule %}
+            <div>
+                <h2 class="section-title">Financial Terms</h2>
+                <div class="row">
+                    <div class="col-md-6 content-group">
+                        <label>Price/Amount:</label>
+                        <p>{{ contract.price_amount|intcomma }}</p>
+                    </div>
+                    <div class="col-md-6 content-group">
+                        <label>Deposit Amount:</label>
+                        <p>{{ contract.deposit_amount|intcomma }}</p>
+                    </div>
+                </div>
+                <div class="content-group">
+                    <label>Payment Schedule:</label>
+                    <p>{{ contract.payment_schedule }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% if contract.dispute_resolution or contract.governing_law or contract.indemnification_clause %}
+            <div>
+                <h2 class="section-title">Legal Terms</h2>
+                <div class="content-group">
+                    <label>Dispute Resolution:</label>
+                    <p>{{ contract.dispute_resolution| safe }}</p>
+                </div>
+                <div class="content-group">
+                    <label>Governing Law:</label>
+                    <p>{{ contract.governing_law|safe }}</p>
+                </div>
+                <div class="content-group">
+                    <label>Indemnification Clause:</label>
+                    <p>{{ contract.indemnification_clause|safe }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% if contract.attachments %}
+            <div>
+                <h2 class="section-title">Attachments</h2>
+                <div class="content-group">
+                    <label>Documents:</label>
+                    <p><a href="{{ contract.attachments.url }}">Download Attachment</a></p>
+                </div>
+            </div>
+            {% endif %}
+            <div>
+                <h2 class="section-title">Signatures</h2>
+                <div class="row">
+                    {% if contract.seller_landlord_name or contract.seller_landlord_contact %}
+                    <div class="col-md-4 content-group">
+                        <label>Seller/Landlord Signature:</label>
+                        {% if contract.seller_landlord_signature %}
+                        <img src="{{ contract.seller_landlord_signature.url }}" alt="Seller Signature" class="img-fluid">
+                        {% else %}
+                        <p>No Signature Uploaded</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% if contract.buyer_tenant_name or contract.buyer_tenant_contact %}
+                    <div class="col-md-4 content-group">
+                        <label>Buyer/Tenant Signature:</label>
+                        {% if contract.buyer_tenant_signature %}
+                        <img src="{{ contract.buyer_tenant_signature.url }}" alt="Buyer Signature" class="img-fluid">
+                        {% else %}
+                        <p>No Signature Uploaded</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <div class="col-md-4 content-group">
+                        <label>Witness Signature:</label>
+                        {% if contract.witness_signature %}
+                        <img src="{{ contract.witness_signature.url }}" alt="Witness Signature" class="img-fluid">
+                        {% else %}
+                        <p>No Signature Uploaded</p>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        {% if request.user.is_authenticated%}
+        <div class="container">
+            <div class="charges">
+                <p>
+                    <span><a href="{% url 'contracts' client.slug %}" class="ecommerce-link">head back to contracts</a></span>
+                    <span><a href="{% url 'index' %}admin/transactions/realestatecontract/{{ contract.id }}/change/"><span class="badge bg-primary">Edit</span></a></span>
+                </p>
+            </div>
+        <!-- Ecommerce Link -->
+        </div>
+        {% endif %}
+    </div>
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Popup Modal -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <p>Share this URL:</p>
+        <input type="text" id="share-url" value="{{request.build_absolute_uri}}" readonly />
+        <button onclick="copyToClipboard()">Copy</button>
+        <button onclick="closePopup()">Close</button>
+    </div>
+</div>
+<script>
+    function showPopup(event) {
+        event.preventDefault(); // Prevent default link behavior
+        const popup = document.getElementById('popup');
+        popup.style.display = 'flex'; // Show the popup
+    }
+    
+    function closePopup() {
+        const popup = document.getElementById('popup');
+        popup.style.display = 'none'; // Hide the popup
+    }
+    
+    function copyToClipboard() {
+        const urlField = document.getElementById('share-url');
+        urlField.select(); // Select the text
+        document.execCommand('copy'); // Copy the text to the clipboard
+        alert('URL copied to clipboard!');
+    }
+</script>
+</body>
+</html>

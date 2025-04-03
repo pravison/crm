@@ -1,0 +1,121 @@
+{% extends 'clients/main.html' %}
+{% load static %}
+{% block title %}Chats List {% endblock%}
+
+{% block content %}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>welcome to  {{ title }}</h1>
+        <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' client.slug %}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'chat_lists' client.slug %}">Customer List</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'leads_warmup_page' %}">customer follow-up</a></li>
+        </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    
+    <section class="section">
+        <div class="row">
+          <div class="col-lg-12">
+  
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Send a message to multiple customers</h5>
+                
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          {{ message }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+
+                      {% endfor %}
+                  {% else %}
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    use only one of the above options(either send To or To (Specific Customers)) if you use both we wiil only send messages to the first option
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <p>
+                      <span>if you want us to customize your message and include customers name in the message</span><br/>
+                      <span>write your messages like this : hi {name} .... we will replace name in the brackets with actual customer name</span><br/>
+                      <span>for example: hi {name}, we will offer a discount will be </span><br/>
+                      <span> hi john, we will offer you a discount </span>
+                    </p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  {% endif %}
+                <div class="container write-message-container">
+                    <h3 class="mb-4 text-center">Write a Message</h3>
+                    
+                    <form  method="POST", action="{% url 'write_message' client.slug %}">
+                      {% csrf_token %}
+                        
+                        <div class="row mb-3">
+                          <label class="col-sm-12 col-form-label">Send To:</label>
+                          <div class="col-sm-12">
+                            <select class="form-select" id="funnel_stage" name="funnel_stage" aria-label="Default select example">
+                              <option value="" >open to select</option>
+                              <option value="all" >All Customers</option>
+                              <option value="awareness">Customers in awareness funnel Stage </option>
+                              <option value="interest">Customers in interest funnel Stage </option>
+                              <option value="decision">Customers in decision funnel Stage </option>
+                              <option value="purchase">Customers in purchase funnel Stage </option>
+                              <option value="active">Customers in active funnel Stage </option>
+                              <option value="dormant">Customers in dormant funnel Stage </option>
+                            </select>
+                          </div>
+                        </div>
+                        
+                          <!-- select customers  -->
+                        <div class="row mb-3">
+                          <label class="col-sm-12 col-form-label">To (Specific Customers) :</label>
+                          <div class="col-sm-12">
+                            <select class="form-select" id="customers" name="customers" multiple aria-label="multiple select example">
+                                {% for customer in customers %}
+                                <option value="{{customer.id}}">{{ customer.name}} is @{{customer.funnel_stage}} stage</option>
+                                {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+                
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message:</label>
+                            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Type your message..." required></textarea>
+                        </div>
+                
+                        <button type="submit" class="btn btn-primary w-100" id="RegisteringAccount">Send Message</button>
+                    </form>
+                </div>
+  
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </section>
+    
+    </main><!-- End #main -->
+
+    <script>
+      // Add an event listener to the form submission
+      document.addEventListener('DOMContentLoaded', function () {
+          const loginButton = document.getElementById('RegisteringAccount');
+          const form = loginButton.closest('form'); // Find the closest form element
+    
+          if (form) {
+              form.addEventListener('submit', function () {
+                  // Disable the button
+                  loginButton.disabled = true;
+    
+                  // Update the button text
+                  loginButton.textContent = "sending message...";
+              });
+          }
+      });
+  </script>
+
+{% endblock %}

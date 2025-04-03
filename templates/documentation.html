@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+{%load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Documentation - Pasona | ai sales agent</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <style>
+    .code-container {
+        position: relative;
+        margin: 20px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        padding: 15px;
+        font-family: monospace;
+    }
+
+    .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        font-size: 14px;
+        cursor: pointer;
+        border: none;
+        border-radius: 3px;
+        background-color: #007BFF;
+        color: white;
+    }
+
+    .copy-btn:hover {
+        background-color: #0056b3;
+    }
+    .video-container {
+      width: 100%;
+      max-width: 560px;
+      margin: 20px auto;
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+    <nav class="header-nav ms-2">
+      <div class="d-flex align-items-center justify-content-between" style="position: relative; left: 100px;">
+        <a href="https:salesflowpro.xyz" class="logo d-flex align-items-center">
+        <span class="d-lg-block" style=" font-size: 26px; font-weight: 700; color: #012970; font-family: sans-serif;"><strong>Pasona</strong></span>
+        </a>
+      </div>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'index' %}">
+          <i class="bi bi-grid"></i>
+          <span>{{title}}</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav1" data-bs-toggle="collapse" href="#">
+          </i><span>Getting Started</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#quickstart">
+              <i class="bi bi-chevron-right"></i><span>Quick Start</span>
+            </a>
+          </li>
+          <li>
+            <a href="#addingcompanyinformation">
+              <i class="bi bi-chevron-right"></i><span>Adding Company Information</span>
+            </a>
+          </li>
+          <li>
+            <a href="#whatsappintergrations">
+              <i class="bi bi-chevron-right"></i><span>Whatsapp Intergration</span>
+            </a>
+          </li>
+          <li>
+            <a href="#gettingstartedwithwhatsappintergrations">
+              <i class="bi bi-chevron-right"></i><span>Whatsapp Intergration Guidelines</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>Phone Number Intergration</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>SMS Intergration</span>
+            </a>
+          </li>
+          <li></li>
+            <a href="#createagent">
+              <i class="bi bi-chevron-right"></i><span>Creating Agents </span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- quick start nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav2" data-bs-toggle="collapse" href="#">
+          </i><span>How To Add Customers</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#addingcustomers">
+              <i class="bi bi-chevron-right"></i><span>Adding Customers</span>
+            </a>
+          </li>
+          <li>
+            <a href="#understandingcustomersfields">
+              <i class="bi bi-chevron-right"></i><span>Understanding Customers Fields</span>
+            </a>
+          </li>
+          <li>
+            <a href="#acessingescalations">
+              <i class="bi bi-chevron-right"></i><span>Accessing Escalations</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End adding customers Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav3" data-bs-toggle="collapse" href="#">
+          <span>How To Add Staffs</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#addingstaffs">
+              <i class="bi bi-chevron-right"></i><span>Add Staffs</span>
+            </a>
+          </li>
+          <li>
+            <a href="#createstaffgroup">
+              <i class="bi bi-chevron-right"></i><span>Create Staff Group</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End adding staff Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav7" data-bs-toggle="collapse" href="#">
+          <span>Enabling data Acces</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav7" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>Through API</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>Through Postgresl database access</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>Form Editors</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Enabling data Acces Nav -->
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav9" data-bs-toggle="collapse" href="#configurewebhookwithwhatsapp">
+          <span>Webhook Intergration</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav9" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span></span>
+            </a>
+          </li>
+          <li>
+        </ul>
+      </li><!-- End Webhook Intergration Nav -->
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav8" data-bs-toggle="collapse" href="#">
+          <span>Tutorials</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav8" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>Adding intstruction to Agents</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>Adding leads for follow-up</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>following up with leads </span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>adding customers for debts collection</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>initiating debt collection</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="#">
+              <i class="bi bi-chevron-right"></i><span>checking for escalation</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tutorials Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav10" data-bs-toggle="collapse" href="#">
+          <span>Chatbot code</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav10" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#getchatbotbutton">
+              <i class="bi bi-chevron-right"></i><span>Get Chat Button code</span>
+            </a>
+          </li>
+          <li>
+            <a href="#getwhatsappbutton">
+              <i class="bi bi-chevron-right"></i><span>Get Whatsapp Button code</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Webhook Intergration Nav -->
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>SalesGenie Documentation</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="breadcrumb-item">Pages</li>
+          <li class="breadcrumb-item active"><a href="#quickstart">Get Started</a></li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+      <div class="row align-items-top">
+        <div class="col-lg-12">
+          <!-- Our sales agent  -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Pasona</h5>
+              At Pasona is where we are building (SalesGenie) an AI Sales Agent that can communicate with your customers through:
+              <ul>
+                <li>Phone Calls</li>
+                <li>Whatsapp</li>
+                <li>SMS</li>
+              </ul>
+              
+            </div>
+          </div><!-- End Default Card -->
+
+          <!-- Our customer support agent agent  -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Customer Support Agent</h5>
+              The AI agent will offer 24/7 customer support with ability to:
+              <ul>
+                <li>personilize the conversation</li>
+                <li>remember customers conversation</li>
+                <li>search for customer data from your API endpoint</li>
+                <li>respond to customers in the language customer speaks</li>
+                <li>take a persona you will want it to take</li>
+                <li>escalate customer if it cant resolve</li>
+                <li>update customer for later follow-up if busy at the moment </li>
+              </ul>
+            </div>
+          </div><!-- End Default Card -->
+
+          <!-- Our leads Warmup agent agent  -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Leads Warmup Agent</h5>
+              The AI agent will nuture you leads until they are ready to purchase
+              how does it work:
+              <ul>
+                <li>categorize you leads into diffrent stages in customer sales funnell</li>
+                <li>follow-up to customer using the intstruction you provide and depending on customers stage in the sales funnell</li>
+                <li> escalate customer when ready to purchase </li>
+                <li>update customer for later follow-up if busy at the moment </li>
+              </ul>
+            </div>
+          </div><!-- End Default Card -->
+
+          <!-- Our debt Collection agent agent  -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Debt Collection Agent</h5>
+              The AI agent will follow-up on all loan repayment by:
+              <ul>
+                <li>categorizing customer into diffrent stages depending on there likelihood to pay</li>
+                <li>keeps record of customers payment behaviour; either time they pay, days the dont pay and so on </li>
+                <li>with this categories and customers payment behaviour; AI determines proactive way to follow up</li>
+                <li> if AI detects need for personal visit it escalete the customer and recommends so</li>
+                <li>AI send thankyou notes immediately customer pay </li>
+                <li> AI sends payment reminders at the time customers alway pays </li>
+              </ul>
+              as at now the AI debt Collection Agent is in production and will be out ready to be used by early next Month
+            </div>
+          </div><!-- End Default Card -->
+
+      </div>
+    </section><!--end of saleflo pro section-->
+
+    <!-- quickstart -->
+    <section class="section faq" >
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card basic">
+            <!-- getting started  -->
+
+            <div class="card-body" id="quickstart">
+              <h5 class="card-title" style="font-weight: 700; font-size: xx-large;">Quick Start</h5>
+
+              <div>
+                <h5>To get started You signup first <a href='https://salesgenieai.salesflowpro.xyz/register/'>here</a></h5>
+                <p>After signup it take 24 hours for you account to be ready.</p>
+                <p>we will send you your accounts details either through Whatsapp or email:</p>
+                  <ul>
+                    <li>url link </li>
+                    <li>username</li>
+                    <li>password</li>
+                  </ul>
+                <p>you will click the url link and login to your account and  start configuring you account to your specific needs</p>
+                <p>start by <a href='#addingcompanyinformation'>adding your company information</a></p>
+              </div>
+
+            </div>
+
+            <!-- adding company information -->
+            <div class="card-body" id="addingcompanyinformation">
+              <h5 class="card-title" style="font-weight: 700; font-size: x-large;">Adding Your Company Information</h5>
+
+              <div>
+                <h5>In you Dashboard click  <a href="{% url 'index' %}admin/accounts/companyinformation/add/">add your business information</a></h5>
+                <p>Make sure to Provide:</p>
+                  <ul>
+                    <li>company name</li>
+                    <li>as summary of business description </li>
+                    <li>as summary of products</li>
+                  </ul>
+                <p>AI will be using this information while interacting with your customers</p>
+                <p>after adding company informations its time to <a href='#whatsappintergrations'>intergrate your whatsapp</a> for ai to communicate with your customers through Whatsapp</p>
+              </div>
+            </div>
+
+            <!-- whatsapp intergrations-->
+            <div class="card-body" id="whatsappintergrations">
+              <h5 class="card-title" style="font-weight: 700; font-size: x-large;">Whatsapp Intergration</h5>
+
+              <div>
+                <h5>To intergrate whatsapp with your account you need:</h5>
+                <ol>
+                  <li>have facebook account</li>
+                  <li>have a phone number not connected to whatsapp and you will want to use it for your business purpose</li>
+                  <li>singup on meta developers account</li>
+                  <li>create an app</li>
+                  <li>link the created app with whatsapp product</li>
+                  <li>link your phone number with created app</li>
+                  <li>Generate Permanent token</li>
+                  <li>add all phone number, phone number id, permenent token, and verification token to your account</li>
+                  <li> <a href="#configurewebhookwithwhatsapp">Link your account webhook url with meta app</a></li>
+                  <li><a href="#whatsapptemplatemessage">learn how to create whatsapp template message</a> with whatsapp you can only send pre-approved message to customer if you are the one initiating the conversation for the first time </li>
+                </ol>
+                
+                <p>if you find this overwhelming reach out to one of our staff who will do it on your behalf <a href="https://wa.me/254740562740/">+254740562740 (pravison juma)</a></p>
+                <p><a href="#gettingstartedwithwhatsappintergrations">if you can do it by yourself follow the guidelines below</a> </p>
+              
+              </div>
+            </div>
+            <!-- intergrating whatsapp step by step guideline -->
+            <div class="card-body" id="gettingstartedwithwhatsappintergrations">
+              <h5 class="card-title" style="font-weight: 700; font-size: x-large;">Whatsapp Intergration Guidelines</h5>
+
+              <div>
+                
+                <h5>if you dont have facebook account you will have to create one  <a href='https://facebook.com/'>click here to register/ signin to your facebook account</a></h5>
+                <h5>if you dont have  meta developers account you will have to create one  <a href='https://developers.facebook.com/whatsapp/cloud-api/get-started'>click here to register/ signin to your meta developers account</a></h5>
+               
+              <!-- app creation plus adding phone number -->
+                <div class="col-lg-12 ">
+                  <div class="col-lg-6 ">
+                    <p>create app in meta plus add your own phone number</p>
+                    <ol>
+                      <li>head tp your account</li>
+                      <li>Click my Create App</li>
+                      <li>add Follow the prompts </li>
+                      <li>after your app is craeted</li>
+                      <li>scroll down to whatsapp and click setup  on add product </li>
+                      <li>After you app is set u with whatsap</li>
+                    </ol>
+                  </div>
+                  <h1>Watch Video on My Website</h1>
+                  <div class="video-container">
+                      <iframe 
+                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                          title="YouTube video" 
+                          frameborder="0" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowfullscreen>
+                      </iframe>
+                  </div>
+                </div>
+
+                <!-- generate permenent token -->
+                <div class="col-lg-6 position-relative align-self-start order-lg-last order-first">
+                  <h1>Generate permenent token</h1>
+                  <div class="video-container">
+                      <iframe 
+                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                          title="YouTube video" 
+                          frameborder="0" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowfullscreen>
+                      </iframe>
+                  </div>
+                </div>
+
+                <ul>Now You need to link Your created meta app with our software
+                  <ul>To do so you will need
+                    <li>Your phone number you have linked with meta app 
+                      <br/>remember<strong> Whatsapp number = phone number</strong></li>
+                    <li>Phone number id of that phone number as provided by meta 
+                      <br/>remember<strong> whatsapp phone number id = Phone number id </strong></li>
+                    <li>verification token which we will provide you with 
+                      <br/>remember<strong> Whatsapp verify token = {{ verify_token }}</strong></li>
+                    <li>Your Permenent token you have generated 
+                      <br/>remember<strong> Whatsapp auth token = Permenent token</strong></li>
+                    <li> <a href="{% url 'index' %}admin/accounts/whatsapp/add/"> click here to add the above information to your account</a></li>
+                  </ul>
+                </ul>
+                <p> after adding the above infromtion we need to configure webhook url in meta app<br/><span>this what allow our application to communicate with whatsapp in real time</span></p>
+              
+                <div class="col-lg-8 position-relative align-self-start order-lg-last order-first" id="configurewebhookwithwhatsapp">
+                  <p>Configure your Account Webhook url with meta app</p> 
+                  copy this webhook url : 
+                  <span>{{webhook_url}}</span>
+                  Copy this verification token:
+                  <span> {{ verify_token }} </span>
+                  <img src="assets/img/about.jpg" class="img-fluid" alt="">
+                  <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+                </div>
+
+                <div class="col-lg-8 position-relative align-self-start order-lg-last order-first" id="whatsapptemplatemessage">
+                  <p>Create whatsapp Template message </p> 
+                  <img src="assets/img/about.jpg" class="img-fluid" alt="">
+                  <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+                </div>
+
+                <div class="col-lg-6 position-relative align-self-start order-lg-last order-first" id="whatsapptemplatemessage">
+                  <p>add Your payment infor (you can configure it later) </p> 
+                  under <strong>your app</strong> in meta head to <strong>whatsapp</strong> the <strong>API set up</strong> then scrooll down to <strong></strong>add payment</strong> click the button and follow the prompts
+                </div>
+              </div>
+            </div>
+
+            <!-- create agent -->
+            <div class="card-body" id="createagent">
+              <h5 class="card-title" style="font-weight: 700; font-size: x-large;">Create Agent</h5>
+
+              <div>
+                <h5><a href="{% url 'index' %}admin/ai/ai_agent/add/">add ai agent</a></h5>
+                <span>Then add name for your agent</span><br/>
+                <span>AI will be good to go you can test how it responds by reaching out to the whatsapp number you provided</span>
+                <p><span style="color: black;">you can add instructions for your ai under </span>sales funnel stage instruction :</p>
+                <span>make sure to add instruction for all stages provide</span><br/>
+                <span>or you can just leave it like that to use build response template</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- end of quickstart-->
+
+    <!-- adding customers -->
+    <section class="section faq" >
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card basic">
+
+            <!-- adding customers  -->
+
+            <div class="card-body" id="addingcustomers">
+              <h5 class="card-title" style="font-weight: 700; font-size: xx-large;">Adding Customers</h5>
+
+              <div>
+                <h5><a href="{% url 'index' %}admin/customers/customer/add/">add customer</a></h5>
+              </div>
+
+            </div>
+
+            <!-- understanding customers fields -->
+            <div class="card-body" id="understandingcustomersfields">
+              <h5 class="card-title" style="font-weight: 700; font-size: x-large;">Understanding Customers Fields</h5>
+
+              <div>
+                <h5><a href="{% url 'index' %}admin/customers/customer/add/">add customer</a></h5>
+                <p>Most of these fields are self exaplanatory if you don't uderstand <a href='https://wa.me/254740562740/' >reach out here on whatsapp</a></p>
+              </div>
+            </div>
+
+            <!-- accessing Escalations-->
+            <div class="card-body" id="acessingescalations">
+              <h5 class="card-title" style="font-weight: 700; font-size: x-large;">Accessing  Escalations</h5>
+
+              <div>
+                <h5><a href="{% url 'index' %}admin/ai/escalation/">Escalations</a></h5>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!--eending customers section-->
+
+    <!-- adding staffs -->
+    <section class="section faq" >
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card basic">
+            <!-- getting started  -->
+
+            <div class="card-body" id="addingstaffs">
+              <h5 class="card-title" style="font-weight: 700; font-size: xx-large;">Adding Staffs</h5>
+
+              <div>
+                <h5><a href="{% url 'index' %}admin/accounts/staff/add/">add staff</a></h5>
+                <p>click + icon on user to create staffs username and password</p>
+                <p> head to Authentication and autorization > user > tehen select the staff you have added</p>
+                <P>now scroll down to permissions section
+                  <ul>
+                    <li>check staff status  if you want user to be able to login to this administration dashboard</li>
+                    <li>check superuser status if you want to grant all permissions to user</li>
+                    <li>rather than adding permisions to users you can
+                      <ul>
+                        <li><a href='#createstaffgroup'>create a staff group</a> with certain permisions and add user to it</li>
+                        <li>or add permisions individually </li>
+                        <li>finally remember to save you changes</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </P>
+              </div>
+
+            </div>
+
+            <!-- adding company information -->
+            <div class="card-body" id="createstaffgroup">
+              <h5 class="card-title" style="font-weight: 700; font-size: x-large;">Create Staff Group</h5>
+
+              <div>
+                <h5><a href="{% url 'index' %}admin/auth/group/add/">add group</a></h5> 
+                <p>provide group name</p>
+                <p>add permisions to the group</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+    
+    <!-- chatbot button code -->
+    <section class="section faq" >
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card basic">
+            <!-- chatbot code  -->
+            <div class="card-body" id="getchatbotbutton">
+              <h5 class="card-title" style="font-weight: 700; font-size: xx-large;">Get Chatbot Button</h5>
+              <div class="code-container">
+                <button class="copy-btn" onclick="copyCode()">Copy</button>
+                <pre>
+                  <code id="code-snippet">
+                      &lt;script&gt;
+                          (function() {
+                              // Create chat button
+                              const chatButton = document.createElement('div');
+                              chatButton.style.position = 'fixed';
+                              chatButton.style.bottom = '11px';
+                              chatButton.style.right = '57px';
+                              chatButton.style.width = '50px';
+                              chatButton.style.height = '50px';
+                              chatButton.style.borderRadius = '50%';
+                              chatButton.style.backgroundColor = '#007bff';
+                              chatButton.style.color = '#fff';
+                              chatButton.style.display = 'flex';
+                              chatButton.style.alignItems = 'center';
+                              chatButton.style.justifyContent = 'center';
+                              chatButton.style.cursor = 'pointer';
+                              chatButton.style.zIndex = '1000';
+                              chatButton.innerHTML = '&lt;i class="bi bi-chat-dots"&gt;&lt;/i&gt;';
+                              document.body.appendChild(chatButton);
+              
+                              // Create chatbox element (hidden initially)
+                              const chatBox = document.createElement('div');
+                              chatBox.style.position = 'fixed';
+                              chatBox.style.bottom = '40px';
+                              chatBox.style.right = '30px';
+                              chatBox.style.width = '300px';
+                              chatBox.style.border = '1px solid #ccc';
+                              chatBox.style.borderRadius = '10px';
+                              chatBox.style.backgroundColor = '#fff';
+                              chatBox.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+                              chatBox.style.display = 'none';
+                              chatBox.style.zIndex = '1000';
+                              chatBox.innerHTML = `
+                                  &lt;div style="padding: 10px; background-color: #007bff; color: #fff; font-weight: bold; border-radius: 10px 10px 0 0;"&gt;
+                                      &lt;span&gt;{{ ai.agent_name }}&lt;/span&gt;
+                                      &lt;button onclick="toggleChat()" style="float: right; color: #fff; background: none; border: none; font-size: 16px;"&gt;&amp;times;&lt;/button&gt;
+                                  &lt;/div&gt;
+                                  &lt;div id="chatContent" style="height: 250px; overflow-y: auto; padding: 10px; font-family: Arial, sans-serif; font-size: 14px;"&gt;&lt;/div&gt;
+                                  &lt;div style="display: flex; border-top: 1px solid #ccc;"&gt;
+                                      &lt;input id="userMessage" type="text" placeholder="Write a message" style="flex: 1; padding: 10px; border: none; outline: none; border-radius: 0 0 0 10px;" /&gt;
+                                      &lt;button onclick="sendMessage()" style="padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 0 0 10px 0; cursor: pointer;"&gt;Send&lt;/button&gt;
+                                  &lt;/div&gt;
+                                  &lt;div style="text-align: center; font-size: 12px; padding: 5px;"&gt;
+                                      &lt;a href="https://salesflowpro.xyz/" target="_blank"&gt;powered by Salesflow Pro&lt;/a&gt;
+                                  &lt;/div&gt;
+                              `;
+                              document.body.appendChild(chatBox);
+              
+                              chatButton.onclick = function() {
+                                  chatButton.style.display = 'none';
+                                  chatBox.style.display = 'block';
+                                  loadChatHistory();
+                              }
+              
+                              window.toggleChat = function() {
+                                  chatBox.style.display = 'none';
+                                  chatButton.style.display = 'flex';
+                              }
+              
+                              function saveMessage(type, message) {
+                                  const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+                                  chatHistory.push({ type, message });
+                                  localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+                              }
+              
+                              function loadChatHistory() {
+                                  const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+                                  const chatContent = document.getElementById('chatContent');
+                                  chatContent.innerHTML = '';
+                                  chatHistory.forEach(entry => {
+                                      const messageDiv = document.createElement('div');
+                                      messageDiv.innerHTML = `
+                                          &lt;div style="margin-bottom: 10px; text-align: ${entry.type === 'user' ? 'right' : 'left'};"&gt;
+                                              &lt;div style="display: inline-block; background-color: ${entry.type === 'user' ? '#007bff' : '#f1f1f1'}; color: ${entry.type === 'user' ? '#fff' : '#000'}; border-radius: 10px; padding: 10px; max-width: 70%;"&gt;
+                                                  ${entry.message}
+                                              &lt;/div&gt;
+                                          &lt;/div&gt;
+                                      `;
+                                      chatContent.appendChild(messageDiv);
+                                  });
+                                  chatContent.scrollTop = chatContent.scrollHeight;
+                              }
+              
+                              window.sendMessage = function() {
+                                  const message = document.getElementById('userMessage').value;
+                                  if (!message) return;
+              
+                                  saveMessage('user', message);
+                                  displayMessage('user', message);
+              
+                                  const loadingMessage = document.createElement('div');
+                                  loadingMessage.id = 'loadingMessage';
+                                  loadingMessage.innerHTML = `
+                                      &lt;div style="margin-bottom: 10px; text-align: left;"&gt;
+                                          &lt;div style="display: inline-block; background-color: #f1f1f1; color: #000; border-radius: 10px; padding: 10px; max-width: 70%;"&gt;
+                                              Loading...
+                                          &lt;/div&gt;
+                                      &lt;/div&gt;
+                                  `;
+                                  document.getElementById('chatContent').appendChild(loadingMessage);
+                                  document.getElementById('chatContent').scrollTop = document.getElementById('chatContent').scrollHeight;
+              
+                                  const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+                                  const recentMessages = chatHistory.slice(-10);
+              
+                                  const payload = { message: message, history: recentMessages };
+              
+                                  fetch('https://{{tenant_domain}}/chatbot-response/', {
+                                      method: 'POST',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify(payload)
+                                  })
+                                  .then(response => response.json())
+                                  .then(data => {
+                                      document.getElementById('loadingMessage').remove();
+                                      saveMessage('bot', data.response);
+                                      displayMessage('bot', data.response);
+                                  })
+                                  .catch(error => {
+                                      console.error('Error:', error);
+                                      document.getElementById('loadingMessage').remove();
+                                  });
+              
+                                  document.getElementById('userMessage').value = '';
+                              }
+              
+                              function displayMessage(type, message) {
+                                  const chatContent = document.getElementById('chatContent');
+                                  const messageDiv = document.createElement('div');
+                                  messageDiv.innerHTML = `
+                                      &lt;div style="margin-bottom: 10px; text-align: ${type === 'user' ? 'right' : 'left'};"&gt;
+                                          &lt;div style="display: inline-block; background-color: ${type === 'user' ? '#007bff' : '#f1f1f1'}; color: ${type === 'user' ? '#fff' : '#000'}; border-radius: 10px; padding: 10px; max-width: 70%;"&gt;
+                                              ${message}
+                                          &lt;/div&gt;
+                                      &lt;/div&gt;
+                                  `;
+                                  chatContent.appendChild(messageDiv);
+                                  chatContent.scrollTop = chatContent.scrollHeight;
+                              }
+              
+                              loadChatHistory();
+                          })();
+                      &lt;/script&gt;
+                  </code>
+              </pre>
+              
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!--eending customers section-->
+
+    <!-- whatsapp button code -->
+    <section class="section faq" >
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card basic">
+
+            <!-- whatsap button code   -->
+            <div class="card-body" id="getwhatsappbutton">
+              <h5 class="card-title" style="font-weight: 700; font-size: xx-large;">Get Whatsapp Button</h5>
+                
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode()">Copy</button>
+                  <pre>
+                    <code id="code-snippet">&lt;script&gt;
+                        (function() {
+                          // Create WhatsApp button
+                          const whatsappButton = document.createElement('div');
+                          whatsappButton.style.position = 'fixed';
+                          whatsappButton.style.bottom = '11px';
+                          whatsappButton.style.right = '109px';
+                          whatsappButton.style.width = '50px';
+                          whatsappButton.style.height = '50px';
+                          whatsappButton.style.borderRadius = '50%';
+                          whatsappButton.style.backgroundColor = '#25D366'; // WhatsApp green color
+                          whatsappButton.style.color = '#fff';
+                          whatsappButton.style.display = 'flex';
+                          whatsappButton.style.alignItems = 'center';
+                          whatsappButton.style.justifyContent = 'center';
+                          whatsappButton.style.cursor = 'pointer';
+                          whatsappButton.style.zIndex = '1000';
+                          whatsappButton.innerHTML = '&lt;i class="bi bi-whatsapp"&gt;&lt;/i&gt;'; // WhatsApp icon (Bootstrap)
+                          
+                          // Add click event to open WhatsApp chat
+                          whatsappButton.onclick = function() {
+                              window.open('https://wa.me/{{whatsap.whatsapp_number}}/?text=hello...', '_blank');
+                          };
+                          
+                          // Append button to body
+                          document.body.appendChild(whatsappButton);
+                        })();
+                    &lt;/script&gt;
+                    </code>
+                    </pre>
+                    
+                
+              </div>             
+                  
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!--eending whatsap chatbot  section-->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Pasona</span></strong>. All Rights Reserved
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <script>
+    (function() {
+       // Create WhatsApp button
+       const whatsappButton = document.createElement('div');
+       whatsappButton.style.position = 'fixed';
+       whatsappButton.style.bottom = '11px';
+       whatsappButton.style.right = '109px';
+       whatsappButton.style.width = '50px';
+       whatsappButton.style.height = '50px';
+       whatsappButton.style.borderRadius = '50%';
+       whatsappButton.style.backgroundColor = '#25D366'; // WhatsApp green color
+       whatsappButton.style.color = '#fff';
+       whatsappButton.style.display = 'flex';
+       whatsappButton.style.alignItems = 'center';
+       whatsappButton.style.justifyContent = 'center';
+       whatsappButton.style.cursor = 'pointer';
+       whatsappButton.style.zIndex = '1000';
+       whatsappButton.innerHTML = '<i class="bi bi-whatsapp"></i>'; // WhatsApp icon (Bootstrap)
+ 
+       // Add click event to open WhatsApp chat
+       whatsappButton.onclick = function() {
+          window.open('https://wa.me/254740562740/?text=hello...', '_blank');
+       };
+ 
+       // Append button to body
+       document.body.appendChild(whatsappButton);
+    })();
+  </script>
+ 
+  <script>
+    (function() {
+      // Create chat button
+      const chatButton = document.createElement('div');
+      chatButton.style.position = 'fixed';
+      chatButton.style.bottom = '11px';
+      chatButton.style.right = '57px';
+      chatButton.style.width = '50px';
+      chatButton.style.height = '50px';
+      chatButton.style.borderRadius = '50%';
+      chatButton.style.backgroundColor = '#007bff';
+      chatButton.style.color = '#fff';
+      chatButton.style.display = 'flex';
+      chatButton.style.alignItems = 'center';
+      chatButton.style.justifyContent = 'center';
+      chatButton.style.cursor = 'pointer';
+      chatButton.style.zIndex = '1000';
+      chatButton.innerHTML = '<i class="bi bi-chat-dots"></i>';
+      document.body.appendChild(chatButton);
+    
+      // Create chatbox element (hidden initially)
+      const chatBox = document.createElement('div');
+      chatBox.style.position = 'fixed';
+      chatBox.style.bottom = '40px';
+      chatBox.style.right = '30px';
+      chatBox.style.width = '300px';
+      chatBox.style.border = '1px solid #ccc';
+      chatBox.style.borderRadius = '10px';
+      chatBox.style.backgroundColor = '#fff';
+      chatBox.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+      chatBox.style.display = 'none';
+      chatBox.style.zIndex = '1000';
+      chatBox.innerHTML = `
+          <div style="padding: 10px; background-color: #007bff; color: #fff; font-weight: bold; border-radius: 10px 10px 0 0;">
+            <span>Sales Genie</span>
+            <button onclick="toggleChat()" style="float: right; color: #fff; background: none; border: none; font-size: 16px;">&times;</button>
+          </div>
+          <div id="chatContent" style="height: 250px; overflow-y: auto; padding: 10px; font-family: Arial, sans-serif; font-size: 14px;">
+          </div>
+          <div style="display: flex; border-top: 1px solid #ccc;">
+            <input id="userMessage" type="text" placeholder="Write a message" style="flex: 1; padding: 10px; border: none; outline: none; border-radius: 0 0 0 10px;" />
+            <button onclick="sendMessage()" style="padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 0 0 10px 0; cursor: pointer;">
+                Send
+            </button>
+          </div>
+          <div style="text-align: center; font-size: 12px; padding: 5px;">
+            <a href="https://salesflowpro.xyz/" target="_blank">powered by Pasona</a>
+          </div>
+      `;
+      document.body.appendChild(chatBox);
+    
+      // Toggle chat visibility
+      chatButton.onclick = function() {
+          chatButton.style.display = 'none';
+          chatBox.style.display = 'block';
+          loadChatHistory(); // Load chat history when opening chatbox
+      }
+    
+      window.toggleChat = function() {
+          chatBox.style.display = 'none';
+          chatButton.style.display = 'flex';
+      }
+    
+      // Function to save chat message in local storage
+      function saveMessage(type, message) {
+          const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+          chatHistory.push({ type, message });
+          localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+      }
+    
+      // Function to load chat history from local storage
+      function loadChatHistory() {
+          const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+          const chatContent = document.getElementById('chatContent');
+          chatContent.innerHTML = ''; // Clear existing content
+    
+          chatHistory.forEach(entry => {
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML = `
+                <div style="margin-bottom: 10px; text-align: ${entry.type === 'user' ? 'right' : 'left'};">
+                  <div style="display: inline-block; background-color: ${entry.type === 'user' ? '#007bff' : '#f1f1f1'}; color: ${entry.type === 'user' ? '#fff' : '#000'}; border-radius: 10px; padding: 10px; max-width: 70%;">
+                      ${entry.message}
+                  </div>
+                </div>
+            `;
+            chatContent.appendChild(messageDiv);
+          });
+          chatContent.scrollTop = chatContent.scrollHeight;
+      }
+    
+      // Function to send message to backend
+      window.sendMessage = function() {
+          const message = document.getElementById('userMessage').value;
+          if (!message) return;
+    
+          saveMessage('user', message); // Save user message
+          displayMessage('user', message); // Display user message
+    
+          // Display loading message
+          const loadingMessage = document.createElement('div');
+          loadingMessage.id = 'loadingMessage';
+          loadingMessage.innerHTML = `
+            <div style="margin-bottom: 10px; text-align: left;">
+                <div style="display: inline-block; background-color: #f1f1f1; color: #000; border-radius: 10px; padding: 10px; max-width: 70%;">
+                  Loading...
+                </div>
+            </div>
+          `;
+          document.getElementById('chatContent').appendChild(loadingMessage);
+          document.getElementById('chatContent').scrollTop = document.getElementById('chatContent').scrollHeight;
+    
+          // Retrieve the last 5 messages (adjust this number as needed)
+          const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+          const recentMessages = chatHistory.slice(-10); // Take the last 10 messages for context
+    
+          // Prepare the request payload with the recent messages and the new question
+          const payload = {
+              message: message,
+              history: recentMessages
+          };
+    
+          fetch('https://aiagent.salesflowpro.xyz/chatbot-response/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+          })
+          .then(response => response.json())
+          .then(data => {
+              // Remove loading message
+              document.getElementById('loadingMessage').remove();
+              
+              saveMessage('bot', data.response); // Save bot response
+              displayMessage('bot', data.response); // Display bot response
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              // Remove loading message if there is an error
+              document.getElementById('loadingMessage').remove();
+          });
+    
+          document.getElementById('userMessage').value = '';
+        }
+    
+      // Function to display message in chatbox
+      function displayMessage(type, message) {
+          const chatContent = document.getElementById('chatContent');
+          const messageDiv = document.createElement('div');
+          messageDiv.innerHTML = `
+            <div style="margin-bottom: 10px; text-align: ${type === 'user' ? 'right' : 'left'};">
+                <div style="display: inline-block; background-color: ${type === 'user' ? '#007bff' : '#f1f1f1'}; color: ${type === 'user' ? '#fff' : '#000'}; border-radius: 10px; padding: 10px; max-width: 70%;">
+                  ${message}
+                </div>
+            </div>
+          `;
+          chatContent.appendChild(messageDiv);
+          chatContent.scrollTop = chatContent.scrollHeight;
+      }
+    
+      // Load chat history when the script is first run
+      loadChatHistory();
+    })();
+  </script>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'assets/vendor/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/quill/quill.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'assets/vendor/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script>
+    function copyCode() {
+        const code = document.getElementById('code-snippet').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            alert('Code copied to clipboard!');
+        }).catch(err => {
+            alert('Failed to copy code: ' + err);
+        });
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+{% extends 'main.html' %}
+{% load static %}
+{%block title%}QR code generator{%endblock%}
+{% block style %}
+
+    *{
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+    main{
+        width:100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    input{
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    button{
+        width: 100%;
+        max-width: 200px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #eee;
+    }
+    button:hover{
+        background-color: #ddd;
+
+    }
+    .qr-img{
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    .qr-img img{
+        width: 100%;
+    }
+
+{%endblock style%}
+
+{% block content %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Generate QR code </h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'company' %}">Company</a></li>
+          <li class="breadcrumb-item active">Qr code</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+    <div class="row">
+        <div class="col-lg-8">
+
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Enter Your Site Link</h5>
+
+            <!-- General Form Elements -->
+            <form method="POST" action="." enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="row mb-3">
+                <label for="data" class="col-sm-2 col-form-label">Link</label>
+                <div class="col-sm-10 ">
+                    <input class="form-control" type="text" name="data" id="data" placeholder="write your companies url" required>
+                </div>
+                </div>
+
+                <div class="row mb-3" >
+                <div class="col-sm-10">
+                    <button style="align-items: center;" type="submit" class="btn btn-primary">Generate</button>
+                </div>
+                </div>
+
+            </form><!-- End General Form Elements -->
+
+            <div class="qr-img">
+                {% if img_name %}
+                    <img src="/media/{{ img_name }}" alt="qr code">
+                {% endif %}
+            </div>
+            <div>
+                <button style="align-items: center;" type="submit" class="btn btn-primary"><a href="/media/{{ img_name }}" download></a>Download</button>
+            </div>
+
+            </div>
+        </div>
+ 
+        </div>
+    </div>
+    </section>
+    
+
+  </main><!-- End #main -->
+{%endblock%}
+
+<div class="card">
+    <div id="qrcode"></div>
+    <button id="downloadBtn">Download Qr code</button>
+    <script>
+        // function to generate qr code and dispaly it
+        function generateQRCode() {
+            //user input from the form
+            const data = document.getElementById("data").value;
+
+            //generate qrcode
+            const qr = new QRCode(document.getElementById("qrcode"), {
+                text:data,
+                width: 256,
+                height: 256,
+            });
+
+            //enable download button
+            document.getElementById("downloadBtn").addEventListener("click", () =>{
+                const qrImageURL = qr.toDataURL();
+                // creating temprorary anchor tag to initiate the download
+                const downloadLink = document.createElement("a");
+                downloadLink.href = qrImageURL;
+                downloadLink.download = "qr_code.png";
+                downloadLink.click();
+            })
+
+        }
+    </script>
+
+</div>

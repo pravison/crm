@@ -1,0 +1,83 @@
+{% extends 'clients/main.html' %}
+{% load static %}
+{% load humanize%}
+{% block title %} Customer Lists {% endblock%}
+{% block content %}
+
+<main id="main" class="main">
+{% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+
+    {% endfor %}
+{% endif %}
+
+    <div class="pagetitle">
+      <h1>Customers Tables</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' client.slug %}">Dashboard</a></li>
+          <li class="breadcrumb-item active">Data</li>
+          
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body overflow-auto">
+              <h5 class="card-title">Customers</h5>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                search anything 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Funnel Stage</th>
+                    <th scope="col">Niche</th>
+                    <th scope="col">Refferal Source</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Last Talked</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for customer in customers %}
+                  <tr>
+                    <th scope="row">{{customer.name}}</th>
+                    <td>{{ customer.phone_number}}</td>
+                    <td>{{ customer.email}}</td>
+                    <td><a href="" class="text-primary">{{ customer.funnel_stage }}</a></td>
+                    <td>{{customer.niche}}</td>
+                    <td>{{customer.refferal_source}}</td>
+                    <td>{{customer.date_added|date}}</td>
+                    <td>{{customer.last_talked|timesince}}</td>
+                    <td><span><a href="{% url 'chat' client.slug %}?customer_id={{customer.id}}" title="send message"><i class="bi bi-chat-left-text text-primary"></i></a></span>  <span><a href="{% url 'add_interaction' client.slug %}?customer_id={{customer.id}}&query=customers" title="add interaction"><i class="bi bi-bookmark-plus text-success"></i></a></span> <span><a href="{% url 'add_task' client.slug %}?customer_id={{customer.id}}" title="add task"><i class="bi bi-calendar-plus text-warning"></i></a></span>  </td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+</main><!-- End #main -->
+{% endblock %}

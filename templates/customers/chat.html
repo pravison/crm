@@ -1,0 +1,108 @@
+
+{% extends 'clients/main.html' %}
+{% load static %}
+{% block title %}Chats with {{ customer.name}} {% endblock%}
+{% block content %}
+
+<main id="main" class="main">
+    
+    <div class="pagetitle">
+        <h1>welcome to  {{ title }}</h1>
+        <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' client.slug %}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'chat_lists' client.slug %}">Customer List</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'write_message' client.slug %}">Write Message</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'add_interaction' client.slug %}?customer_id={{customer.id}}&query=chat">Add Interaction</a></li>
+        </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    
+    <section class="section chat-container" style="height: 100%;">
+        <div class="row">
+          <div class="col-xxl-4 col-xl-12 ">
+  
+            <div class="card">
+                <!-- <h5 class="card-title">Customer Chats</h5> -->
+
+                <div class="container-fluid d-flex flex-column h-100 ">
+                    <h4 class="text-center p-2" id="chat-user">Chats with {% if customer.name %}{{ customer.name }} {% elif customer.whatsapp_profile %} {{ customer.whatsapp_profile }}-{% endif %} {{ customer.phone_number}} </h4>
+                    
+                    <div class="chat-box" id="chat-box">
+                        <hr/>
+                        {% for message in customer_chats  %}
+                        <!-- Example of received message -->
+                        <div class="message {% if message.sender == 'customer'%} sent {% else %} received {% endif %} {% if message.read %} read {% endif %} " id="message-{{message.id}}" data-read="message.read">
+                            <p> {{ message.sender }}:</p>
+                           {{message.message}}
+                        </div>
+                        <hr/>
+                        {% endfor %}
+                    </div>
+                
+                    <!-- Input section -->
+                    <div class="chat-input">
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-warning alert-dismissible fade show col-lg-6" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        
+                        
+                            {% endfor %}
+                        {% endif %}
+                        <form action="{% url 'chat' client.slug %}?customer_id={{customer.id}}" method="POST">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" name="message" style="height: 100px" required></textarea>
+                            </div>
+                            </div>
+                    
+                            <button type="submit" class="btn btn-primary flex-end" id="RegisteringAccount">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+  
+          </div>
+        </div>
+    </section>
+    
+</main><!-- End #main -->
+
+<script>
+    // sccroll to the last read 
+    window.onload = function(){
+        const chatBox = document.getElementById('chat-box');
+        const lastReadMessage = document.querySelector('.message.read');
+        if (lastReadMessage){
+            // scrol to the chat boxt to the last read message
+            chatBox.scrollTop = lastReadMessage.offsetTop - chatBox.clientHeight + lastReadMessage.clientHeight;
+            console.log('read')
+        } else{
+            // if no read message scroll to the bottom 
+            chatBox.scrollTop = chatBox.scrollHeight;
+            console.log('down')
+        }
+    }
+</script>
+<script>
+    // Add an event listener to the form submission
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginButton = document.getElementById('RegisteringAccount');
+        const form = loginButton.closest('form'); // Find the closest form element
+  
+        if (form) {
+            form.addEventListener('submit', function () {
+                // Disable the button
+                loginButton.disabled = true;
+  
+                // Update the button text
+                loginButton.textContent = "sending message...";
+            });
+        }
+    });
+</script>
+{% endblock %}

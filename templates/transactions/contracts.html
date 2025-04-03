@@ -1,0 +1,77 @@
+{% extends 'clients/main.html' %}
+{% load static %}
+{% block title %}Contracts{% endblock%}
+{% load custom_filters %}
+{% block content %}
+<main id="main" class="main">
+
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+
+  {% endfor %}
+  {% endif %}
+  <div class="pagetitle">
+      <h1>Contracts</h1>
+      <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard' client.slug %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'customers' client.slug %}">Customers</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'create_contract' client.slug %}">Create New Contract</a></li>
+      </ol>
+      </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body overflow-auto">
+            <h5 class="card-title">Contracts</h5>
+            
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Seller Name</th>
+                  <th scope="col">Buyer/Tenant Name</th>
+                  <th scope="col">Agent Name</th>
+                  <th scope="col">Price Amount</th>
+                  <th scope="col">Deposit Amount</th>
+                  <th scope="col">Deposit Due Date</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for contract in contracts %}
+                <tr>
+                  <td><a href="{% url 'view_contract' client.slug %}?contract_id={{contract.id}}">{{ contract.date_created}}</a></td>
+                  <td>{{ contract.seller_landlord_name}}</td>
+                  <td>{{ contract.buyer_tenant_name }}</td>
+                  <td>{{ contract.agent_name}}</td>
+                  <td>{{ contract.price_amount}}</td>
+                  <td>{{ contract.deposit_amount}}</td>
+                  <td>{{ contract.deposit_due_date}}</td>
+                  <td><a href="{% url 'index' %}admin/transactions/realestatecontract/{{ contract.id }}/change/"><span class="badge bg-primary">Edit</span></a> <a href="{% url 'view_contract' client.slug %}?contract_id={{contract.id}}"><span class="badge bg-primary">view</span></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+{% endblock %}
+

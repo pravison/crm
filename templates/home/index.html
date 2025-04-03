@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="{% static 'momo/images/logo.jpg' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+    <!-- Theme tittle -->
+    <title>PASONA - CRM &amp; AI agents for customer support, follow-up, customer categorization</title>
+
+    <!-- Theme style CSS -->
+    <link rel="stylesheet" href="{% static 'momo/css/bootstrap-select.min.css' %}">
+    <link href="{% static 'momo/css/style.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <!-- Header Area -->
+    <header class="main_header_area">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'momo/images/logo.jpg' %}" alt="" style="width: auto; height: 60px;">  
+            </a>
+            <!-- Small Divice Menu-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar_supported"> 
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse navbar_supported">
+                <ul class="navbar-nav">
+                    <li><a href="mailto:shop.pasona@gmail.com" class="mail_nav">shop.pasona@gmail.com</a></li>
+                    {% if not request.user.authenticated %}
+                    <li><a href="{% url 'login_user' %}" class="theme_btn">Sign in</a></li>
+                    <li><a href="{% url 'register_user' %}?plan=monthly" class="theme_btn">Create An Account</a></li>
+                    {% else %}
+                        {% if clients %}
+                        <li><a href="{% url 'clients' %}" class="theme_btn">View Your Accounts</a></li>
+                        {% endif %}
+                    {% endif %}
+
+                    
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Header Area -->
+
+    <div id="parallax">
+
+        <!-- Banner Area -->
+        <section class="banner_area banner_a2">
+            <img src="{% static 'momo/images/banner-bg-style-2.png ' %}" alt="" class="banner_bg">
+            <div class="container">
+                <h1 class="wow fadeIn" style="color: white; font-size: xxx-large;">Are You Losing Sales and refferals by Letting Leads and Past Clients  Go Cold or Delaying Follow-Ups?</h1>
+                <p class="wow fadeIn" data-wow-delay="0.2s">At Pasona, we help real estate agents stay connected with past clients, automate follow-ups to keep leads warm and respond to inquiries quickly.
+                    Our AI-powered CRM ensures you never miss a sale, refferal, or opportunity again.</p>
+                <a href="{% url 'register_user' %}?plan=monthly" class="theme_btn wow fadeIn" data-wow-delay="0.4s">Get Started Now! </a>
+            </div>
+            <!-- <img src="{% static 'momo/images/banner-images-2.jpg' %}" alt="" class="banner_img wow fadeInRight"> -->
+        </section>
+        <!-- Banner Area -->
+
+        <!-- Analytics Area -->
+        <section class="analytics_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 wow fadeInDown" data-wow-delay="0.4s">
+                        <div class="analytics">
+                            <!-- <div class="icons"><i class="far fa-gem"></i></div> -->
+                            <a href="#">CRM</a>
+                            <p>Our CRM comes with tools to help you stay connected, automate follow-ups and nuture relationships.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInDown" data-wow-delay="0.2s">
+                        <div class="analytics analytics_2">
+                            <!-- <div class="icons"><i class="far fa-chart-bar"></i></div> -->
+                            <a href="#">AI Customer Support </a>
+                            <p>AI agents ensure quick, accurate and personalized responses.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInDown">
+                        <div class="analytics analytics_3">
+                            <!-- <div class="icons"><i class="far fa-object-ungroup"></i></div> -->
+                            <a href="#">Automated Follow-ups</a>
+                            <p>seamlesly follow up with potential buyers and sellers on WhatsApp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img src="{% static 'momo/images/agency-banner-bg-style-2.png' %}" alt="" class="layer bg_style" data-depth="0.10">
+        </section>
+        <!-- Analytics Area -->
+
+        <!-- Counter Section Area -->
+        <section class="countarup_area" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-sm-6 wow fadeInLeft">
+                        <div class="years_fild">
+                            <h4>Years in the Field</h4>
+                            <h1 class="counter">3</h1>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 wow fadeInUp">
+                        <div class="customer">
+                            <h4>Happy Customer</h4>
+                            <h3><span class="counter">19</span>+</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="customer">
+                            <h4>Total Follow-ups </h4>
+                            <h3><span class="counter">15</span>K <span>+</span></h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="customer">
+                            <h4>Total Engaged Customers</h4>
+                            <h3><span class="counter">1</span>K <span>+</span></h3>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="client_logo_area">
+                            <div class="owl-carousel client_logo">
+                                <div class="item"><a href="#" class="active"><img src="{% static 'momo/images/client-logo-1.png' %}" alt="" style="height: 100px; width: auto;"></a></div>
+                                <div class="item"><a href="#" ><img src="{% static 'momo/images/client-logo-2.jpg' %}" alt="" style="height: 100px; width: auto;"></a></div>
+                                <div class="item"><a href="#"><img src="{% static 'momo/images/logo.jpg' %}" alt=""  style="height: 100px; width: auto;"></a></div>
+                                <div class="item"><a href="#"><img src="images/client-logo-4.png" alt=""></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Counter Section Area -->
+
+        <!-- benefits Section -->
+        <section class="seo_insights" id="benefits">
+            <div class="row">
+                <div class="col-lg-5 recovered_img wow fadeInLeft">
+                    <img src="{% static 'momo/images/benefits.webp' %}" alt="">
+                </div>
+                <div class="col-lg-7">
+                    <div class="insights_contant wow fadeInRight">
+                        <h2>Why Choose Us?</h2>
+                        <div class="list_line" style="padding-bottom: 5px;">
+                            <div class="icons icons_2"><i class="far fa-chart-bar"></i></div>
+                            <h4>24/7 availability:</h4>
+                            <p>Impress clients with round-the-clock service and support.</p>
+                        </div>
+                        <div class="list_line" style="padding-bottom: 5px;">
+                            <div class="icons icons_2"><i class="far fa-chart-bar"></i></div>
+                            <h4>Save Time and Money:</h4>
+                            <p>automate repwtitive tasks, freeing you to focus on closing deals.</p>
+                        </div>
+                        <div class="list_line" style="padding-bottom: 5px;">
+                            <div class="icons icons_2"><i class="far fa-chart-bar"></i></div>
+                            <h4>Boost Sales:</h4>
+                            <p>Engage and nuture leads with personalized follow-ups driving conversions.</p>
+                        </div>
+                        <div class="list_line" style="padding-bottom: 5px;">
+                            <div class="icons icons_2"><i class="far fa-chart-bar"></i></div>
+                            <h4>Lifetime Value </h4>
+                            <p>Choose the plan that suits your needs, pay once or subscribe flexibly.</p>
+                        </div>
+                        <div class="list_line" style="padding-bottom: 40px;">
+                            <div class="icons icons_2"><i class="far fa-chart-bar"></i></div>
+                            <h4>Tailored For Real Estate </h4>
+                            <p>Our CRM is built with real estate proffessionals in mind, ensuring you get tools you truly need.</p>
+                        </div>
+
+                        <b> Dont wait-your competitors are already adopting AI-driven tools. start now and secure your edge in te real estate market!</b>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End-->
+
+        
+        <!-- Testimonial -->
+        <!-- <section class="testimonial_area">
+            <div class="row">
+                <div class="col-lg-5 user_img">
+                    <img src="{% static 'momo/images/user-img.png' %}" alt="">
+                </div>
+                <div class="col-lg-7 testimonial">
+                    <div class="tittle">
+                        <h4>Social Proof</h4>
+                        <h2>Trusted by Real Estate <br>Proffessionals Like You</h2>
+                    </div>
+                    <div class="owl-carousel testimonial_carousel">
+                        <div class="item">
+                            <div class="testimonial_item">
+                                <p>Our approach has empowered local, national, and global brands to grow their businesses and achieve a competitive advantage and we can do the same for you.</p>
+                                <div class="media">
+                                    <img src="images/author.png" alt="">
+                                    <div class="media-body">
+                                        <a href="#">Emran Khan</a>
+                                        <h6>Web Developer</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimonial_item">
+                                <p>Our approach has empowered local, national, and global brands to grow their businesses and achieve a competitive advantage and we can do the same for you.</p>
+                                <div class="media">
+                                    <img src="{% static 'momo/images/author-2.png' %}" alt="">
+                                    <div class="media-body">
+                                        <a href="#">Mahfuz Riad</a>
+                                        <h6>Ui Designer & CEO</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- End Testimonial -->
+
+        <!-- Service Icon Area -->
+        <section class="service_icon_area sia_2" id="services">
+            <div class="container">
+                <div class="tittle">
+                    <div class="nav_control">
+                        <a href=".si_carousel" role="button" data-slide="prev"><i class="flaticon-left-arrow"></i></a>
+                        <a class="next" href=".si_carousel" role="button" data-slide="next"><i class="flaticon-next"></i></a>
+                    </div>
+                    <h2>What Pasona Can Do For You</h2>
+                </div>
+                <div class="carousel slide si_carousel" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6 wow">
+                                    <div class="single_box">
+                                        <!-- <i class="fas fa-hockey-puck tick"></i> -->
+                                        <a href="#" class="heding">AI Customer Support </a>
+                                        <p>Handle client inquiries 24/7 with AI agents that ensure quick, accurate and personalized responses. Never Miss any potential opportunity.</p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 wow">
+                                    <div class="single_box">
+                                        <!-- <i class="far fa-chart-bar tick t_2"></i> -->
+                                        <a href="#" class="heding">Automated Follow-Ups</a>
+                                        <p>seamlesly follow up with potential buyers, renters and sellers on whatsApp. Save time and keep leads engaged without lifting a finger</p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 wow">
+                                    <div class="single_box">
+                                        <!-- <i class="fas fa-chart-line tick t_3"></i> -->
+                                        <a href="#" class="heding">Lead Qualification </a>
+                                        <p>Our AI agents analyze and prioritize leads, helping you focus on the most promising opportunities and close deals faster </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6 wow">
+                                    <div class="single_box">
+                                        <i class="fas fa-hockey-puck tick"></i>
+                                        <a href="#" class="heding">AI Customer Support </a>
+                                        <p>Handle client inquiries 24/7 with AI agents that ensure quick, accurate and personalized responses. Never Miss any potential opportunity.</p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 wow">
+                                    <div class="single_box">
+                                        <i class="far fa-chart-bar tick t_2"></i>
+                                        <a href="#" class="heding">Automated Follow-Ups</a>
+                                        <p>seamlesly follow up with potential buyers, renters and sellers on whatsApp. Save time and keep leads engaged without lifting a finger</p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 wow">
+                                    <div class="single_box">
+                                        <i class="fas fa-chart-line tick t_3"></i>
+                                        <a href="#" class="heding">Lead Qualification </a>
+                                        <p>Our AI agents analyze and prioritize leads, helping you focus on the most promising opportunities and close deals faster </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <img src="{% static 'momo/images/agency-banner-bg-style-3.png' %}" alt="" class="bg_style" data-depth="0.10"> -->
+        </section>
+        <!-- End Service Icon Area -->
+
+        <!-- About us -->
+        <section class="agency_task at_2" id="about">
+            <div class="row">
+                <div class="col-lg-7 wow fadeInLeft">
+                    <div class="agency_contant">
+                        <h5>About Us</h5>
+                        <div class="agency_contant">
+                            <h2>From Real Estate Challenges to CRM Innovation</h2>
+                            <p>At Pasona, we started in the dynamic world of real estate. Like many agents we faced the frustration of loosing leads and missing out on opportunities. 
+                                Some leads would go cold and by the time we reached out, the didnt even recognize us. worse, we often lost touch with past clients, missing out on valuable refferals and future sales
+                            <br/>
+                            Determined to solve these painponts, we created a solution designed specifically for real estate proffessionals. With Pasona you'll never let a lead go cold or loose touch with clients again. Our AI-Powered CRM helps you stay connected, automate follow-ups, and nuture
+                            </p>
+                            <div class="media">
+                                <img src="{% static 'momo/images/task_sahdwo.jpg' %}" alt="">
+                                <div class="media-body">
+                                    <h1><span class="counter">1000</span>+</h1>
+                                    <h6>Customers engaged</h6>
+                                </div>
+                            </div>
+                            <a href="{% url 'register_user' %}?plan=monthly" class="task_btn">join us on this journey to transform your real estate business. start today and never miss an opportuninty</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 agency_task_img wow fadeInRight">
+                    <img src="{% static 'momo/images/left_bg-2.webp' %}" alt="">
+                </div>
+            </div>
+            <img src="{% static 'images/fouc_left_.png' %}" class="layer focus_bg" data-depth="0.35" alt="">
+        </section>
+        <!-- Agency Task Area End -->
+
+        <!-- Team Area -->
+        <!-- <section class="team_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="team">
+                            <img src="images/team-1.png" alt="">
+                            <a href="#">Mahfuz Riad</a>
+                            <h6>GRAPHIC DESIGNER</h6>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="team">
+                            <img src="images/team-2.png" alt="">
+                            <a href="#">Emran Khan</a>
+                            <h6>Web Developer</h6>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="team">
+                            <img src="images/team-3.png" alt="">
+                            <a href="#">Tamim anjum</a>
+                            <h6>ACCOUNT MANAGER</h6>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="team">
+                            <img src="images/team-4.png" alt="">
+                            <a href="#">Masum Rana</a>
+                            <h6>SEO Expert</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- Team Area -->
+
+        <!-- Pricing Plan -->
+        <section class="pricing_plan pp_2" id="pricing">
+            <div class="container">
+                <div class="tittle">
+                    <h2>Pricing Plan</h2>
+                    <p>Two simple options, monthly or yearly subscription or life time access.</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 wow fadeIn">
+                        <div class="plan active">
+                            <h3>Lifetime Access<br/> <b>20,000 ksh.</b></h3>
+                            <h6>comes with access to all upgrades and maintenance for life</h6>
+                            <ul>
+                                <li>CRM </li>
+                                <li>AI customer support</li>
+                                <li>AI follow-up</li>
+                                <li>AI customer qualification</li>
+                                <li>You use your own openai key</li>
+                            </ul>
+                            <a href="{% url 'register_user' %}?plan=lifetime" class="theme_btn">Start now</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.2s">
+                        <div class="plan plan_2">
+                            <h3>Monthly<br/> <b>1,500 ksh.</b></h3>
+                            <h6>comes with access to all upgrades and maintenance per month</h6>
+                            <ul>
+                                <li>CRM </li>
+                                <li>AI customer support</li>
+                                <li>AI follow-up</li>
+                                <li>AI customer qualification</li>
+                                <li>You use our own openai key</li>
+                            </ul>
+                            <a href="{% url 'register_user' %}?plan=monthly" class="theme_btn">Start now</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.4s">
+                        <div class="plan plan_3">
+                            <h3>Yearly<br/> <b>15,000 ksh</b></h3>
+                            <h6>comes with access to all upgrades and maintenance per year</h6>
+                            <ul>
+                                <li>CRM </li>
+                                <li>AI customer support</li>
+                                <li>AI follow-up</li>
+                                <li>AI customer qualification</li>
+                                <li>You use our own openai key</li>
+                                <li>two month discount </li>
+                            </ul>
+                            <a href="{% url 'register_user' %}?plan=yearly" class="theme_btn">Start now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Pricing Plan -->
+
+        <!--blog posts -->
+        <!-- <section class="blog_posts_area">
+            <div class="container">
+                <h2>We believe in sharing Check out our blog posts</h2>
+                <div class="row m-0">
+                    <div class="col-lg-6 bp_item active">
+                        <div class="blog_img">
+                            <img src="images/blog/blog-post-1.png" alt="">
+                            <span><b>12</b> Sep</span>
+                        </div>
+                        <div class="blog_contant">
+                            <a href="blog-details.html">A good content strategy can help engage your consumers</a>
+                            <p>A good content strategy can help engage your consumers and position your company as an effective publisher in your industry. In turn, this will play a role in increasing brand recognition, traffic to your website, lead conversions,
+                                and customer loyalty</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 bp_item">
+                        <div class="blog_img bi_2">
+                            <img src="images/blog/blog-post-2.png" alt="">
+                            <span><b>12</b> Sep</span>
+                        </div>
+                        <div class="blog_contant">
+                            <a href="blog-details.html">As a digital marketing agency, we specialize in lead generation</a>
+                            <p>As a digital marketing agency, we specialize in lead generation, inbound marketing, conversion optimization, and sales nurturing. Our digital process is data-driven and highly iterative We focus on metrics that measurably boost
+                                your business' growth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!--blog posts -->
+
+        <section class="get_touch">
+            <div class="container">
+                <p>Join Hundreds of successful real estate agents who trust Pasona to simplify their workflow and grow their businesses. its your time to thrive</p>
+                <a href="#" class="theme_btn">Get Started Now!</a>
+            </div>
+            <span></span>
+        </section>
+
+        <!-- Footer Area Start -->
+        <section class="footer_area">
+            <div class="container">
+                <div class="row bottom_border">
+                    <div class="col-lg-4 col-sm-6 wow fadeIn">
+                        <div class="footer_logo">
+                            <a href="{% url 'index' %}"><img src="{% static 'momo/images/logo.jpg' %}" alt="" style="width: auto; height: 100px;"></a>
+                            <p>Empowering real estate agents to achieve more with less effort. Experience the future of CRM today.</p>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-3 col-sm-6 footer_about wow fadeIn" data-wow-delay="0.2s">
+                        <h3>About Company</h3>
+                        <ul>
+                            <li><a href="#about">about us</a></li>
+                            <li><a href="#services">Services</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-sm-6 footer_about wow fadeIn" data-wow-delay="0.4s">
+                        <h3>Information</h3>
+                        <ul>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#pricing">Pricing plan</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 suppoet_footer wow fadeIn" data-wow-delay="0.6s">
+                        <h3>Pasona</h3>
+                        <p>4th floor Delta Corner, Westland</p>
+                        <p>Nairobi Kenya</p>
+                        <a class="email" href="mailto:shop.pasona@gmail.com">shop.pasona@gmail.com</a>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copy_right">
+                    <div class="row m-0">
+                        <div class="col-lg-9 col-md-8 p-0">
+                            <ul>
+                                <li><a href="blog.html">NEWS</a></li>
+                                <li><a href="https://wa.me//254740562740/">whatsapp(0740562740)</a></li>
+                            </ul>
+                        </div>
+                        <p class="col-lg-3 col-md-4 order-md-first">© 2019 All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+    <!-- Parallax -->
+
+    <!-- Scroll Top Button -->
+    <button class="scroll-top">
+        <i class="fa fa-angle-double-up"></i>
+    </button>
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+
+
+    <!-- jQuery v3.3.1 -->
+    <script src="{% static 'momo/js/jquery-3.3.1.min.js' %}"></script>
+    <!-- Bootstrap v4.0.0 -->
+    <script src="{% static 'momo/js/popper.min.js' %}"></script>
+    <script src="{% static 'momo/js/bootstrap.min.js' %}"></script>
+    <!-- Extra Plugin -->
+    <script src="{% static 'momo/vendors/animate-css/wow.min.js' %}"></script>
+    <script src="{% static 'momo/vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'momo/vendors/parallaxmouse/parallax.min.js' %}"></script>
+    <script src="{% static 'momo/vendors/counterup/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'momo/vendors/counterup/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'momo/vendors/bootstrap-selector/jquery.nice-select.min.js' %}"></script>
+    <!-- Theme js / Custom js -->
+    <script src="{% static 'momo/js/theme.js' %}"></script>
+</body>
+
+</html>
