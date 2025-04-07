@@ -11,7 +11,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'dashboard' client.slug %}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{% url 'chat_lists' client.slug %}">Customer List</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'leads_warmup_page' %}">customer follow-up</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'leads_warmup_page'  client.slug %}">customer follow-up</a></li>
         </ol>
         </nav>
     </div><!-- End Page Title -->

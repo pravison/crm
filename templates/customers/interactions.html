@@ -20,7 +20,7 @@
       <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'dashboard' client.slug %}">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'leads_warmup_page' %}">Customer Follow up</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'leads_warmup_page'  client.slug %}">Customer Follow up</a></li>
         <li class="breadcrumb-item"><a href="{% url 'write_message' client.slug %}">Write Message</a></li>
       </ol>
       </nav>
