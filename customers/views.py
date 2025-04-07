@@ -221,7 +221,7 @@ def add_customer(request, slug):
                     follow_up_date =  after_two_days
                 )
                 messages.success(request, "customer added to be followed up after three days")
-                follow_up_immediately(client.id, phone_number)# the function cant caryy whole model but somethind like a text or id can wok
+                # follow_up_immediately(client.id, phone_number)# the function cant caryy whole model but somethind like a text or id can wok
                 messages.success(request, "customer is being followed up immediately by AI ")
                 
                 return redirect('add_customer', slug)
