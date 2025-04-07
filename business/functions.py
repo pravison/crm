@@ -143,6 +143,8 @@ def get_company_knowledgebase(client):
              and a flag indicating if no products are found.
     """
     # Assuming Product has a foreign key to Company, which has a foreign key to Customer
+    
+    # client = Client.objects.filter(id=id).first()
     knwoledges = KnowledgeBase.objects.all(client=client)
     
     if not knwoledges.exists():
@@ -776,13 +778,14 @@ def follow_up_tasks_today(client):
     return True
 
 # leads warmup agent 2
-def follow_up_immediately(client, fromId):
+def follow_up_immediately(id, fromId):
     """
     This function follow up with customer immediately after being added to the database.
     
     Returns:
     - A list of follow-up results for each customer.
     """
+    client = Client.objects.filter(id=id).first()
     agent = AI_Agent.objects.filter(client=client).order_by('id').first()
     if not agent:
         agent = AI_Agent.objects.create(client=client, agent_name="sales agent")
