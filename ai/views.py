@@ -41,34 +41,37 @@ def assign_task(request, slug):
 @dynamic_login_required
 @team_member_required
 def tasks(request, slug):
+    # Get only one client matching the slug
     client = Client.objects.filter(slug=slug).first()
+    if not client:
+        return redirect('some_error_page')  # Add error handling if needed
+
+    # Only get clients related to this user
     clients = Client.objects.filter(user=request.user)
-    staff = Staff.objects.filter(user=request.user, client=client).first()
 
-    escalations = Escalation.objects.filter(client=client, done=False)
-    escalations_count = escalations.count()
+    # Use select_related to avoid extra queries for user and client
+    staff = Staff.objects.select_related('user', 'client').filter(user=request.user, client=client).first()
 
-    chats = Conversation.objects.filter(client=client, read=False)
-    chats_count = chats.count()
+    # Count only — no need to load entire objects
+    escalations_count = Escalation.objects.filter(client=client, done=False).count()
+    chats_count = Conversation.objects.filter(client=client, read=False).count()
+
+    # Load only tasks with relevant staff or no staff assigned
     tasks = TaskPipeline.objects.filter(
-        client=client,
-        ).filter(
-            Q(staff__isnull=True) | Q(staff=staff)
-        ).order_by('-id')
-    staff_list = Staff.objects.filter(client=client)
+        client=client
+    ).filter(
+        Q(staff__isnull=True) | Q(staff=staff)
+    ).select_related('staff').order_by('-id')
+
     context = {
-        'client' : client,
-        'clients' : clients,
-        'staff' : staff,
-        'escalations' : escalations,
-        'escalations_count' :  escalations_count,
-        'chats' : chats,
-        'chats_count' : chats_count,
+        'client': client,
+        'clients': clients,
+        'staff': staff,
+        'escalations_count': escalations_count,
+        'chats_count': chats_count,
         'tasks': tasks,
-        'staff_list': staff_list
     }
     return render(request, 'ai/tasks.html', context)
-
 
 @dynamic_login_required
 @team_member_required
@@ -78,7 +81,7 @@ def add_task(request, slug):
     if customer_id:
         customer = Customer.objects.filter(id=customer_id).first()
         if customer is None:
-            messages.success(request, "Customer does not exists suggest head to customers list and select customer again!")
+            messages.success(request, "Customer does not  we suggest you head to customers list and select customer again!")
             return redirect('add_task', slug)
     client = Client.objects.filter(slug=slug).first()
     clients = Client.objects.filter(user=request.user)
@@ -89,10 +92,11 @@ def add_task(request, slug):
 
     chats = Conversation.objects.filter(client=client, read=False)
     chats_count = chats.count()
+
     if request.method == 'POST':
         form = AddTaskPipelineForm(request.POST)
         if form.is_valid():
-            instance=form.save()
+            instance=form.save(commit=False)
             instance.client=client
             instance.staff = staff
             instance.customer = customer
